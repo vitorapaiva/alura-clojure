@@ -1,3 +1,3 @@
 # alura-clojure
-docker run -it --rm udemy-clojure lein command
+docker run -it --rm alura-clojure lein command
 
