@@ -22,3 +22,35 @@
 (defn atende
   [hospital departamento]
   (update hospital departamento pop))
+
+(defn atende-completo
+  [hospital departamento]
+  {
+   :paciente (update hospital departamento peek)
+   :hospital (update hospital departamento pop)
+   })
+
+(defn atende-completo-chama-ambos
+  [hospital departamento]
+  (let [fila (get hospital departamento)
+        peek-pop (juxt peek pop)
+        [pessoa fila-atualizada] (peek-pop fila)
+        hospital-atualizado (update assoc departamento fila-atualizada)]
+    {
+     :paciente pessoa
+     :hospital hospital-atualizado
+     }
+    ))
+
+(defn proxima
+  [hospital departamento]
+  (-> hospital
+      departamento
+      peek))
+
+(defn transfere
+  [hospital de para]
+  (let [pessoa (proxima hospital de)]
+    (-> hospital
+        (atende de)
+        (chega-em para pessoa))))
